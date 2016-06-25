@@ -1,2 +1,2 @@
-var commentApp = angular.module('CommentsApp', []);
+var commentApp = angular.module('CommentsApp', ['angularMoment']);
 

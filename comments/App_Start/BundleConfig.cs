@@ -15,6 +15,7 @@ namespace Comments
                         "~/Scripts/comments/comments.js",
                         "~/Scripts/comments/commentSvc.js",
                         "~/Scripts/comments/commentctrl.js",
+                        "~/Scripts/comments/common/angular-moment.js",
                         "~/Scripts/comments/angular.comments.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

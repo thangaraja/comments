@@ -11,6 +11,8 @@ commentApp.service("commentSvc", function ($http, $q) {
     });
 
     function loadComments(_item, _parentId) {
+        if (!_parentId)
+            _parentId = -1;
         var deferred = $q.defer();
         var request = $http({
             method: "get",

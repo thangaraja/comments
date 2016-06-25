@@ -1,68 +1,80 @@
 ﻿<div class="comments">
-    <div class="clearfix">
+    <form class="form-horizontal" role="form">
         <div class="form-group">
-            <textarea placeholder="Add Comment" autofocus class="form-control" row="3" ng-model="newComment.message"></textarea>
+            <img class="control-label col-sm-1 img-circle" src="http://placehold.it/64x64" />
+            <div class="col-sm-11">
+                <textarea placeholder="Add Comment" autofocus class="form-control" rows="3" ng-model="newComment.message"></textarea>
+            </div>
         </div>
-        <div class="form-group pull-right">
-            <button class="btn btn-danger" ng-disabled="shouldDisable(newComment.message)" ng-click="addComment(newComment)">Add</button>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-danger pull-right" ng-disabled="shouldDisable(newComment.message)" ng-click="addComment(newComment)">Add</button>
+            </div>
         </div>
-    </div>
+    </form>
     <hr />
     <button ng-if="baseCommentThread.totalReplies > 0" class="btn-link" ng-click="showAll(baseCommentThread)">View All {{baseCommentThread.totalReplies}} Comments</button>
-    <div class="media">
+    <div class="">
         <div class="media text-center" ng-if="baseCommentThread.totalReplies===0">
             No Comments
         </div>
-        <ng-include src="'Comments.template'" ng-repeat="commentThread in baseCommentThread.replies" include-replace></ng-include>
+        <ng-include src="'Comments.template'" ng-repeat="commentThread in baseCommentThread.replies"></ng-include>
         <div ng-if="showLoadMore(baseCommentThread)">
             <button class="btn btn-default btn-block" data-ng-click="showMore(baseCommentThread)">Load More</button>
         </div>
     </div>
 
     <script type="text/ng-template" id="comment.template">
-        <div class="useravatar pull-left media-object img-text" name=thread.comment.createdBy></div>
+
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object" src="http://placehold.it/64x64" />
+            </a>
+        </div>
+        <!--<div class="useravatar pull-left media-object img-text" name=thread.comment.createdBy></div>-->
         <div class="media-body">
-            <h6 class="media-heading">
+            <h6 class="media-heading text-primary">
                 {{thread.comment.createdBy}}
                 <small class="text-warning" am-time-ago="thread.comment.createdOn"></small>
                 <span ng-if="thread.comment.isEdited"> - Edited </span>
+                <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="cursorpointer pull-right" ng-click="deleteComment(thread)" title="Delete">Delete</span>
+                <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="cursorpointer pull-right" ng-click="showEdit(thread.comment)" title="Edit">Edit&nbsp;&nbsp;</span>
             </h6>
-            <p ng-if="!thread.comment.isEdited"> {{thread.comment.message}}</p>
-            <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="fa fa-trash-o cursorpointer" ng-click="deleteComment(thread)" title="Delete"></span>
-            <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="fa fa-pencil cursorpointer" ng-click="showEdit(thread.comment)" title="Edit"></span>
+            <p class="text-justify" ng-if="!thread.comment.isEdited"> {{thread.comment.message}}</p>
+            <span ng-if="!thread.comment.isReply && !thread.comment.isEdited" class="cursorpointer text-primary" ng-click="showReply(thread.comment)" title="Reply">Reply</span>
             <div ng-if="thread.comment.isEdited">
                 <div class="form-group">
-                    <textarea autofocus class="form-control" row="3" ng-focus="thread.comment.isEdited" ng-model="thread.comment.message"></textarea>
+                    <textarea autofocus class="form-control" rows="3" ng-focus="thread.comment.isEdited" ng-model="thread.comment.message"></textarea>
                 </div>
                 <div class="form-group pull-right">
-                    <button class="btn btn-danger" ng-click="thread.comment.isEdited=false">Cancel</button>
+                    <button class="btn btn-link" ng-click="thread.comment.isEdited=false">Cancel</button>
                     <button ng-disabled="shouldDisable(thread.comment.message)" class="btn btn-primary" ng-click="editComment(thread.comment)">Update</button>
                 </div>
             </div>
-            <span ng-if="!thread.comment.isReply && !thread.comment.isEdited" class="fa fa-reply cursorpointer" ng-click="showReply(thread.comment)" title="Reply"></span>
+
             <div ng-if="thread.comment.isReply">
                 <div class="form-group">
                     <textarea placeholder="Reply Comment" autofocus class="form-control" row="3" ng-focus="thread.comment.isReply" ng-model="reply.message"></textarea>
                 </div>
                 <div class="form-group pull-right">
-                    <button class="btn btn-danger" ng-click="thread.comment.isReply=false">Cancel</button>
+                    <button class="btn btn-link" ng-click="thread.comment.isReply=false">Cancel</button>
                     <button ng-disabled="shouldDisable(reply.message)" class="btn btn-primary" ng-click="replyComment(reply,thread)">Reply</button>
                 </div>
             </div>
         </div>
+
     </script>
 
     <script type="text/ng-template" id="Comments.template">
         <div class="media">
-            <div ng-include src="'comment.template'" ng-init="thread=commentThread"></div>
+            <ng-include src="'comment.template'" ng-init="thread=commentThread"></ng-include>
             <div class="media tab">
                 <div class="media" ng-if="commentThread.totalReplies>0">
-                    <!--<a class="fa fa-angle-double-up cursorpointer" ng-click="showLess(commentThread)" ng-if="(commentThread.totalReplies == commentThread.replies.length)">{{'ViewLess'|translate}}</a>-->
                     <a class="fa fa-angle-double-down cursorpointer" ng-click="showAll(commentThread)" ng-if="(commentThread.totalReplies > commentThread.replies.length)">Show Replies ({{commentThread.totalReplies}})</a>
                 </div>
                 <div class="media" ng-include src="'Comments.template'" ng-repeat="commentThread in commentThread.replies"></div>
             </div>
         </div>
     </script>
-    
+
 </div>

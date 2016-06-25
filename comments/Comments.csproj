@@ -191,10 +191,12 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\comments\angular.comments.js" />
+    <Content Include="Scripts\comments\angular.includeReplace.js" />
     <Content Include="Scripts\comments\commentCtrl.js" />
     <Content Include="Scripts\comments\comments.html" />
     <Content Include="Scripts\comments\comments.js" />
     <Content Include="Scripts\comments\commentSvc.js" />
+    <Content Include="Scripts\comments\common\angular-moment.js" />
     <Content Include="Scripts\comments\index.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -217,6 +219,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

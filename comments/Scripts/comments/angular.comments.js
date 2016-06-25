@@ -7,3 +7,14 @@ commentApp.directive('comment', function () {
     };
 });
 
+'use strict';
+commentApp.directive('includeReplace', function () {
+    return {
+        require: 'ngInclude',
+        restrict: 'A', /* optional */
+        link: function (scope, el, attrs) {
+            //debugger;
+            el.replaceWith(el.children());
+        }
+    };
+});

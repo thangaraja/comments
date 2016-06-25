@@ -1,7 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:#F1F1F1;
 }
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -10,7 +13,35 @@
 }
 
 
-.comments .media-body p{
-        line-height: 21px;
+/*.comments .media-body p {
+    line-height: 21px;
     margin: 0 0 15px;
+}*/
+
+.navbar-default {
+    background-color: orange;
+    border-color: #E7E7E7;
+}
+
+
+.panel-heading {
+    background-color: white !important;
+}
+
+.shadow{
+	-webkit-box-shadow: 5px 5px #E5E5E5;
+	   -moz-box-shadow: 5px 5px #E5E5E5;
+	        box-shadow: 5px 5px #E5E5E5;
+}
+
+.marginsmall{
+    margin-top:15px;
+}
+
+.media-body p{
+    margin:0;
+}
+
+.cursorpointer{
+    cursor:pointer;
 }
