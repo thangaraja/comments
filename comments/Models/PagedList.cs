@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Comments.Models
 {
-
     public class PagedList<T> : List<T>
     {
         public int TotalCount { get; private set; }
@@ -17,9 +12,7 @@ namespace Comments.Models
 
         public PagedList()
         {
-
         }
-
 
         public PagedList(ICollection<T> source, int page, int pageSize, int totalCount)
         {
@@ -60,7 +53,4 @@ namespace Comments.Models
             return (totalCount / pageSize) + (remainder == 0 ? 0 : 1);
         }
     }
-
-
-
 }

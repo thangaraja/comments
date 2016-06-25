@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace Comments.Models
 {
@@ -8,11 +6,9 @@ namespace Comments.Models
     {
         public Guid Id { get; set; }
 
-        public Guid ParentId { get; set; }
-        
+        public Nullable<Guid> ParentId { get; set; }
+
         public string Message { get; set; }
-        
-        public Nullable<Guid> InReplyToCommentId { get; set; }
 
         public PagedList<Comment> Replies { get; set; }
 
@@ -23,6 +19,8 @@ namespace Comments.Models
         public DateTime CreatedOn { get; set; }
 
         public Nullable<Guid> UpdatedBy { get; set; }
+
+        public Guid PostId { get; set; }
 
         private Nullable<DateTime> _updatedOn;
 

@@ -1,6 +1,5 @@
 'use strict';
 commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, commentSvc) {
-
     $scope.id = $scope.value ? $scope.value.entityId : "";
 
     $scope.newComment = {
@@ -26,7 +25,6 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
 
     // Conver the plain comment to thread
     function getCommentThread(_level, _comment, _replies, _totalReplies) {
-
         if (!_comment) _comment = {};
         if (!_replies) _replies = [];
         if (!_totalReplies) _totalReplies = 0;
@@ -40,12 +38,10 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
             limit: 5,
             totalReplies: _totalReplies
         };
-
     };
 
     // Server returns result as plain json. Lets change it inorder to render the result recursivly.
     function appendResult(_level, result) {
-
         var repliesCount = result ? result.length : 0;
         if (repliesCount > 0) {
             for (var index = 0; index < repliesCount; index++) {
@@ -135,7 +131,6 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
         $scope.loadComments(item, actionType.LoadAll, item.comment.id);
     };
 
-
     $scope.addComment = function (newComment) {
         commentSvc.addReplyComment(newComment.message,"")
                 .then(function (addedComment) {
@@ -168,7 +163,6 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
                    });
     };
 
-
     $scope.deleteComment = function (item) {
         commentSvc.deleteComment(item.comment)
                .then(function () {
@@ -196,5 +190,4 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
         $scope.baseCommentThread = thread;
     };
     $scope.init();
-
 }]);

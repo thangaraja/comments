@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Remoting;
-using System.Text;
-using System.Security.Cryptography;
+﻿using System;
 
 namespace Comments.Helpers
 {
@@ -29,11 +24,9 @@ namespace Comments.Helpers
             return (!value.Equals(Guid.Empty));
         }
 
-
         public static bool IsEmptyGuid(Guid value)
         {
             return (value.Equals(Guid.Empty));
         }
-
     }
 }

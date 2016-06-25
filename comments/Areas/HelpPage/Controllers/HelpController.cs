@@ -1,8 +1,8 @@
+using Comments.Areas.HelpPage.ModelDescriptions;
+using Comments.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Comments.Areas.HelpPage.ModelDescriptions;
-using Comments.Areas.HelpPage.Models;
 
 namespace Comments.Areas.HelpPage.Controllers
 {

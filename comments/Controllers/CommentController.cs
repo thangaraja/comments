@@ -1,10 +1,9 @@
-﻿using Comments.Models;
+﻿using Comments.Helpers;
+using Comments.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Formatting;
 using System.Web.Http;
-using Comments.Helpers;
 
 namespace Comments.Controllers
 {
@@ -23,10 +22,9 @@ namespace Comments.Controllers
                 {
                     Message = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.-" + index,
                     Id = Guid.NewGuid(),
-                    CreatedOn=DateTime.Now.AddDays(index)
+                    CreatedOn = DateTime.Now.AddDays(index)
                 };
                 _Comments.Add(comment);
-
             }
         }
 
@@ -36,7 +34,7 @@ namespace Comments.Controllers
             Comment _comment = new Comment()
             {
                 Message = comment.Message,
-                InReplyToCommentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? (Guid?)null : comment.ParentId,
+                ParentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? (Guid?)null : comment.ParentId,
                 Id = Guid.NewGuid()
             };
 
@@ -54,7 +52,6 @@ namespace Comments.Controllers
         [HttpDelete]
         public void Delete(string commentId, string parentId)
         {
-
         }
 
         private object GetCommentObject(Comment comment, int totalReplies)
@@ -67,7 +64,7 @@ namespace Comments.Controllers
                     comment.Message,
                     CreatedOn = comment.CreatedOn.ToString("g"),
                     CreatedBy = "Gandalf",
-                    InReplyToCommentId = CommonHelpers.IsNotEmptyGuid(comment.InReplyToCommentId) ? comment.InReplyToCommentId.ToString() : null,
+                    InReplyToCommentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? comment.ParentId.ToString() : null,
                     IsEdited = CommonHelpers.IsNotEmptyGuid(comment.UpdatedBy)
                 },
                 Replies = GetExtractedComments(comment.Replies, comment.Replies != null ? comment.Replies.TotalCount : 0)

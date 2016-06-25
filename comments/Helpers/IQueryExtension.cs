@@ -1,15 +1,11 @@
 ﻿using Comments.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-
 
 namespace Comments.Helpers
 {
     public static class QueryableExtension
     {
-
         public static PagedList<T> ToPagedList<T>(this IQueryable<T> source, int page, int pageSize)
         {
             return new PagedList<T>(source, page, pageSize);
@@ -20,12 +16,9 @@ namespace Comments.Helpers
             return new PagedList<T>(source, fetchCountOnly);
         }
 
-
-        public static PagedList<T> ToPagedList<T>(this ICollection<T> source, int page, int pageSize,int totalCount)
+        public static PagedList<T> ToPagedList<T>(this ICollection<T> source, int page, int pageSize, int totalCount)
         {
-            return new PagedList<T>(source, page,pageSize,totalCount);
+            return new PagedList<T>(source, page, pageSize, totalCount);
         }
-
-       
     }
 }
