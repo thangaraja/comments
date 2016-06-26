@@ -20,5 +20,15 @@
     @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("[data-toggle=popover]").popover({
+                html: true,
+                content: function () {
+                    return $('#popover-content').html();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

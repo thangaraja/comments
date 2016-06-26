@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><button data-placement="bottom" data-html="true" data-toggle="popover" data-container="body" type="button" class="btn btn-default navbar-btn navbar-right">Login As</button></li>
+    </ul>
+    <div id="popover-content" class="hide">
+        <div class="pull-left box">
+            <div class="clearfix">
+                <a href="javascript:document.getElementById('Gandalf').submit()">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwYDRsUIRAWIB0uIiUnHyUnKygsKyYoKCsfNT0tJis3PS86Jy8zOzMyNygtMS0BCgoKDQwNGg8PGjclHyU3NTc3Lzc3Nzc3NTc1Nzc3NTctNTIyNTU1NTU3Njc1LTU1NTU1Li83NTUvNS8yNTc1Nf/AABEIAEAAQAMBIgACEQEDEQH/xAAbAAADAQEBAQEAAAAAAAAAAAAEBQYDBwIBAP/EADgQAAIBAgQDBAgDCQEAAAAAAAECAwQRAAUhMQYSE0FRcfAUImGBkaGxwSMy0RUlQlJUkqLh8Qf/xAAZAQADAQEBAAAAAAAAAAAAAAACAwQFAAH/xAAdEQADAAMBAQEBAAAAAAAAAAAAAQIDERIhMWEE/9oADAMBAAIRAxEAPwCKBoZMviSKnjUCJS/4YbffXe98CZfljZhVx0tLTLJLIbKoUfP2YaJm1DT5d6Ll9K3TeJDzsdQxUc3iAb2xTcD5eIKQVA1qKk2Fv4U3Pyth0vS9RBf3xjTh/wD85yyJA9VDFXS7tpyons7z5OLCi4Q4ej/NkuXt2KegvZ8cCL+aOJ5OSNbc1ja5IuRce7DlJ6dVtG53uVL32N9/Z5OE1lSemUY8NOekLM04J4algb91U8LW0dIwtj3ns+OIHP8AhJMnAlSCKanbZ+mLr266fPHV/SIhG6OnMWB5u2/d5++JuVkiZ6N0LUdQt4wW1Q7kA/TexvgozSqSBzfz1y6+HL/Raf8Ap4v7BgHOqWljy+SX0eIOQVDcoFtL92KTNqFqOskjYWsxI0thDndOJaCVjoY0ZgPdiq5Tnwgx05tbEVGhkECC92UDbHSKGpak5ena6RW8LnbEVkdJ1VSVV1ESgGw/l18/fFZQQmWQ9TQLYe7txPb90P8A0e5rWxw1qBjyhizbnUXtbz+uCaLinLIQi1HMjb2KqLD2b/XCDO1Wr6LhgCshF72tfXAUWXESkB5XYgAxEW5cSZEunsvwXXC0i4qeLKeOIlaZpAAbeqDc++wxOPxFJmFYhYxr+Kvqgk2Hd9MNqHJY6rhUwERrNCxZZbXLA3+W+3swgqhTZaqXp1RmcWlBuHN+za2u48cAmOyJtfg0zuNa+OOS56qgLfvA78S+a09OuT1pkkZJPR3Ki35mxUUjCeCdCw5uW417f94nuJacrlNSwBt0XP8AjjUx11DRi3OrTFfDRX0CGIm3qKbX307Bh/RTqJJFBvzKbfDCSjoo/wBm0zRlrpAhZu/1dcNshpWkjerlfTcHu864m36OYJn5engMiNq1QDa+wCj9cfcraaohnpYZOksmzb6HycZZoWq6ToOCJEmLKfYdD9Bj3lMFTDQOpsASApB28MKudsow5eJ0EQ5nndNUPFV18HIVsrgWFu8A4x4ujppMp9JoapnZJVeRCb682vxv2/fAc1ARK0aIHubH1ea5wdFTLLlk61akFxZmA7N8Cp9+DbzLn7s9ZBXuksbycwR4ufQ9n64J4pKz5PWvEdDA5NhvYYT5R0RIsIPq2dAb3sdx9vhhnmMHJw3X9S/MKZyNd/VOHRXLI6XQiy6sdaaGEtcGJVY9xthtlFQxFVBKSsMzBU8AP+4l8mq4UhVampjF1GhcYcZZXZeFmkqKumV9kXqr3+OOCpMPz8LA8aqwaVgAPDz9MaUD8zgE2SJfV17e/COtzSmqJYw9VC3Sut+YajDnLavLUpjz19EXkYs15l0+emOQLTSD3lVVUDdmFzfsxm0xUypbmW9tuzH4VeUiNXOZ0ZJNyOunf4+OM5MwyppHBr6S+pP4y6aeOPQNMlqx3y6vZ+bkUPzAjYEefN8Uuf5i78OSsQskdRAwVhurW18+/CXiGegmRmhraZyUsAJVNj7jfAs1fSHIGomqUusJKWYE81tvfgWvR0+pH//Z" alt="..." class="img-circle pull-left">
+                </a>
+            </div>
+            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "gandalf@lotr.com", Password = "Password@123", Name = "Gandalf" })
+        </div>
+        <div class="pull-left box">
+            <div class="clearfix">
+                <a href="javascript:document.getElementById('Aragorn').submit()">
+                    <img src="http://icons.veryicon.com/ico/Movie%20%26%20TV/Movie%20XP%20Icons/Aragorn%203.ico" alt="..." class="img-circle pull-left">
+                </a>
+            </div>
+            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "legolas@lotr.com", Password = "Password@123", Name = "Aragorn" })
+        </div>
+        <div class="pull-left box">
+            <div class="clearfix">
+                <a href="javascript:document.getElementById('Legolas').submit()">
+                    <img src="https://a.wattpad.com/useravatar/leuriel.64.127751.jpg" alt="..." class="img-circle pull-left">
+                </a>
+            </div>
+            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "aragorn@lotr.com", Password = "Password@123", Name = "Legolas" })
+        </div>
+    </div>
+}

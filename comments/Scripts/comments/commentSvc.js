@@ -1,6 +1,6 @@
 'use strict';
 commentApp.service("commentSvc", function ($http, $q) {
-    var urlBase = '/api/Comment/';
+    var urlBase = '/Comment/';
 
     return ({
         addReplyComment: addReplyComment,

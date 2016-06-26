@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:#F1F1F1;
+    background-color: #F1F1F1;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,20 +24,30 @@
     background-color: white !important;
 }
 
-.shadow{
-	-webkit-box-shadow: 5px 5px #E5E5E5;
-	   -moz-box-shadow: 5px 5px #E5E5E5;
-	        box-shadow: 5px 5px #E5E5E5;
+.shadow {
+    -webkit-box-shadow: 5px 5px #E5E5E5;
+    -moz-box-shadow: 5px 5px #E5E5E5;
+    box-shadow: 5px 5px #E5E5E5;
 }
 
-.marginsmall{
-    margin-top:15px;
+.marginsmall {
+    margin-top: 15px;
 }
 
-.media-body p{
-    margin:0;
+.media-body p {
+    margin: 0;
 }
 
-.cursorpointer{
+.cursorpointer {
+    cursor: pointer;
+}
+
+.box {
+    height: 90px;
+    width: 75px;
     cursor:pointer;
 }
+
+    .box a {
+        margin-left: 7px;
+    }

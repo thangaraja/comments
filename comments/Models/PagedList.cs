@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Comments.Models
+namespace CommentSystems.Models
 {
     public class PagedList<T> : List<T>
     {

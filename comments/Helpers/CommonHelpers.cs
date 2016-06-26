@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Comments.Helpers
+namespace CommentSystems.Helpers
 {
     public static class CommonHelpers
     {

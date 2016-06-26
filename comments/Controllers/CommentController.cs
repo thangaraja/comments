@@ -1,14 +1,29 @@
 ﻿using Comments.Helpers;
-using Comments.Models;
+using CommentSystems.Attributes;
+using CommentSystems.Helpers;
+using CommentSystems.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
 
-namespace Comments.Controllers
+namespace CommentSystems.Controllers
 {
-    [CamelCasingFilterAttribute]
-    public class CommentController : ApiController
+    public abstract class Controller : System.Web.Mvc.Controller
+    {
+        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonDotNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
+        }
+    }
+
+    public class CommentController : Controller
     {
         private static List<Comment> _Comments;
 
@@ -29,7 +44,7 @@ namespace Comments.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddOrReplyComment([FromBody]Comment comment)
+        public JsonResult AddOrReplyComment(Comment comment)
         {
             Comment _comment = new Comment()
             {
@@ -39,11 +54,11 @@ namespace Comments.Controllers
             };
 
             _Comments.Add(comment);
-            return Ok(GetCommentObject(_comment, _Comments.Count));
+            return Json(GetCommentObject(_comment, _Comments.Count),JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public void Edit([FromBody] Comment comment)
+        public void Edit(Comment comment)
         {
             var _comment = _Comments.Find(x => x.Id == comment.Id);
             _comment.Message = comment.Message;
@@ -86,11 +101,11 @@ namespace Comments.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Get(string parentId, int page, int pageSize)
+        public JsonResult Get(string parentId, int page, int pageSize)
         {
             var result = _Comments.AsQueryable().ToPagedList(page, pageSize);
             var resultToReturn = GetExtractedComments(result, _Comments.Count);
-            return Ok(resultToReturn);
+            return Json(resultToReturn, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿@using CommentSystems.Models
+@model LoginViewModel
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = "" }, FormMethod.Post, new { id = Model.Name }))
+{
+    @Html.AntiForgeryToken()
+    <input id="Email" name="Email" type="hidden" value="@Model.Email" />
+    <input id="Password" name="Password" type="hidden" value="@Model.Password" />
+    <input id="RememberMe" name="RememberMe" type="hidden" value="false" />
+    <a href="javascript:document.getElementById('@Model.Name').submit()">@Model.Name</a>
+}
