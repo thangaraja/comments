@@ -1,9 +1,8 @@
-﻿using Comments.Helpers;
-using CommentSystems.Attributes;
+﻿using CommentSystems.Attributes;
 using CommentSystems.Helpers;
 using CommentSystems.Models;
+using CommentSystems.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -23,24 +22,17 @@ namespace CommentSystems.Controllers
         }
     }
 
+
+
     public class CommentController : Controller
     {
-        private static List<Comment> _Comments;
+        //private static List<Comment> _Comments;
 
-        static CommentController()
+        private ICommentRepository commentRepository;
+
+        public CommentController()
         {
-            _Comments = new List<Comment>();
-
-            for (int index = 0; index < 65; index++)
-            {
-                Comment comment = new Comment()
-                {
-                    Message = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.-" + index,
-                    Id = Guid.NewGuid(),
-                    CreatedOn = DateTime.Now.AddDays(index)
-                };
-                _Comments.Add(comment);
-            }
+            this.commentRepository = new CommentRepository(new CommentDbContext());
         }
 
         [HttpPost]
@@ -49,24 +41,29 @@ namespace CommentSystems.Controllers
             Comment _comment = new Comment()
             {
                 Message = comment.Message,
-                ParentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? (Guid?)null : comment.ParentId,
-                Id = Guid.NewGuid()
+                ParentId = string.IsNullOrEmpty(comment.ParentId) ? string.Empty : comment.ParentId,
+                Id = Guid.NewGuid().ToString(),
+                CreatedBy = "Test",
+                PostId=comment.PostId,
+                CreatedOn = DateTime.Now
             };
 
-            _Comments.Add(comment);
-            return Json(GetCommentObject(_comment, _Comments.Count),JsonRequestBehavior.AllowGet);
+            commentRepository.Add(_comment);
+            return Json(GetCommentObject(_comment, 10), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void Edit(Comment comment)
         {
-            var _comment = _Comments.Find(x => x.Id == comment.Id);
-            _comment.Message = comment.Message;
+            comment.UpdatedBy = "Test";
+            comment.UpdatedOn = DateTime.Now;
+            commentRepository.Update(comment);
         }
 
         [HttpDelete]
         public void Delete(string commentId, string parentId)
         {
+            commentRepository.Delete(commentId);
         }
 
         private object GetCommentObject(Comment comment, int totalReplies)
@@ -101,11 +98,20 @@ namespace CommentSystems.Controllers
         }
 
         [HttpGet]
-        public JsonResult Get(string parentId, int page, int pageSize)
+        public JsonResult Get(string postId, string parentId, int page, int pageSize)
         {
-            var result = _Comments.AsQueryable().ToPagedList(page, pageSize);
-            var resultToReturn = GetExtractedComments(result, _Comments.Count);
-            return Json(resultToReturn, JsonRequestBehavior.AllowGet);
+            CommentSearchCondition condition = new CommentSearchCondition()
+            {
+                PostId = postId,
+                ParentId = parentId,
+                PageNumber = page,
+                PageSize = pageSize
+            };
+
+            var replies = commentRepository.GetComments(condition);
+
+            var result = GetExtractedComments(replies, replies.TotalCount);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

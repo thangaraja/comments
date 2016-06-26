@@ -38,7 +38,7 @@
                 <small class="text-warning" am-time-ago="thread.comment.createdOn"></small>
                 <span ng-if="thread.comment.isEdited"> - Edited </span>
                 <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="cursorpointer pull-right" ng-click="deleteComment(thread)" title="Delete">Delete</span>
-                <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="cursorpointer pull-right" ng-click="showEdit(thread.comment)" title="Edit">Edit&nbsp;&nbsp;</span>
+                <span ng-if="!thread.comment.isEdited && !thread.comment.isReply" class="cursorpointer pull-right" ng-click="showEdit(thread.comment)" title="Edit">Edit&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </h6>
             <p class="text-justify" ng-if="!thread.comment.isEdited"> {{thread.comment.message}}</p>
             <span ng-if="!thread.comment.isReply && !thread.comment.isEdited" class="cursorpointer text-primary" ng-click="showReply(thread.comment)" title="Reply">Reply</span>

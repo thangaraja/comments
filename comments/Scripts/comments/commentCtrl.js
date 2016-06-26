@@ -6,6 +6,8 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
         message: '',
     };
 
+    var postId = 'cnf4h5HT4dc';
+
     var commentLimit = {
         Firstlevel: 10,
         SecondLevel: 2,
@@ -122,17 +124,17 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
 
     $scope.showMore = function (item) {
         item.currentPage = item.currentPage + 1;
-        $scope.loadComments(item, actionType.LoadMore, item.comment.id);
+        $scope.loadComments(postId, item, actionType.LoadMore, item.comment.id);
     };
 
     $scope.showAll = function (item) {
         item.currentPage = -1;
         item.limit = 1000;
-        $scope.loadComments(item, actionType.LoadAll, item.comment.id);
+        $scope.loadComments(postId, item, actionType.LoadAll, item.comment.id);
     };
 
     $scope.addComment = function (newComment) {
-        commentSvc.addReplyComment(newComment.message,"")
+        commentSvc.addReplyComment(newComment.message, "",postId)
                 .then(function (addedComment) {
                     newComment.message = '';
                     updateDOM($scope.baseCommentThread, addedComment, actionType.Add);
@@ -143,7 +145,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
     };
 
     $scope.replyComment = function (replyComment, parentComment) {
-        commentSvc.addReplyComment(replyComment.message, parentComment.comment.id)
+        commentSvc.addReplyComment(replyComment.message, parentComment.comment.id, postId)
                .then(function (repliedComment) {
                    replyComment.message = '';
                    updateDOM(parentComment, repliedComment, actionType.Reply);
@@ -154,6 +156,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
     };
 
     $scope.editComment = function (comment) {
+        comment.postId = postId;
         commentSvc.editComment(comment)
                .then(function () {
                    comment.isEdited = false;
@@ -174,7 +177,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
     };
 
     $scope.loadComments = function (item, action, parentId) {
-        commentSvc.loadComments(item, parentId)
+        commentSvc.loadComments(postId, item, parentId)
                 .then(function (result) {
                     if (result)
                         updateDOM(item, result, action);

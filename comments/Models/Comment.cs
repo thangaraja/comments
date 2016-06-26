@@ -1,26 +1,39 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommentSystems.Models
 {
+
     public class Comment
     {
-        public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
-        public Nullable<Guid> ParentId { get; set; }
+        public string ParentId { get; set; }
 
+        [Required]
+        [StringLength(250)]
         public string Message { get; set; }
 
+        [NotMapped]
         public PagedList<Comment> Replies { get; set; }
 
+        [NotMapped]
         public int TotalReplyCount { get; set; }
 
-        public Guid CreatedBy { get; set; }
+        [Required]
+        [StringLength(250)]
+        public string CreatedBy { get; set; }
 
+        [Required] 
         public DateTime CreatedOn { get; set; }
 
-        public Nullable<Guid> UpdatedBy { get; set; }
+        [StringLength(250)]
+        public string UpdatedBy { get; set; }
 
-        public Guid PostId { get; set; }
+        [Required] 
+        public string PostId { get; set; }
 
         private Nullable<DateTime> _updatedOn;
 

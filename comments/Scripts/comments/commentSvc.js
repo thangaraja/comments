@@ -9,7 +9,7 @@ commentApp.service("commentSvc", function ($http, $q) {
         deleteComment: deleteComment
     });
 
-    function loadComments(_item, _parentId) {
+    function loadComments(postId, _item, _parentId) {
         if (!_parentId)
             _parentId = -1;
         var deferred = $q.defer();
@@ -17,6 +17,7 @@ commentApp.service("commentSvc", function ($http, $q) {
             method: "get",
             url: urlBase + "Get",
             params: {
+                postId: postId,
                 parentId: _parentId,
                 page: _item.currentPage,
                 pageSize: _item.pageSize
@@ -28,7 +29,7 @@ commentApp.service("commentSvc", function ($http, $q) {
         return deferred.promise;
     };
 
-    function addReplyComment(message, parentId) {
+    function addReplyComment(message, parentId, postId) {
         var deferred = $q.defer();
         var request = $http({
             method: "post",
@@ -36,7 +37,8 @@ commentApp.service("commentSvc", function ($http, $q) {
             data: {
                 comment: {
                     message: message,
-                    parentId: parentId
+                    parentId: parentId,
+                    postId: postId
                 }
             }
         }).success(function (result) {

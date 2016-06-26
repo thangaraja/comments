@@ -12,6 +12,7 @@ namespace CommentSystems.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CommentSystems.Models.ApplicationDbContext context)

@@ -75,12 +75,30 @@ namespace CommentSystems.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
 
+            //CreateTable(
+            //    "dbo.Comments",
+            //    c => new
+            //    {
+            //        Id = c.String(nullable: false, maxLength: 128),
+            //        ParentId = c.Guid(nullable: true),
+            //        Message = c.String(nullable: false, maxLength: 250),
+            //        CreatedBy = c.String(nullable: false, maxLength: 128),
+            //        CreatedOn = c.DateTime(nullable: false),
+            //        UpdatedBy = c.String(nullable: true, maxLength: 128),
+            //        UpdatedOn = c.DateTime(nullable: true),
+            //    })
+            //    .PrimaryKey(t => new { t.Id })
+            //    .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy, cascadeDelete: false)
+            //    .ForeignKey("dbo.AspNetUsers", t => t.UpdatedBy, cascadeDelete: false)
+            //    .Index(t => t.Id);
+
         }
 
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Comments", "CreatedBy", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -94,6 +112,7 @@ namespace CommentSystems.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Comments");
         }
     }
 }
