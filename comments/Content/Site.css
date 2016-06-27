@@ -10,14 +10,9 @@
     padding-right: 15px;
 }
 
-/*.comments .media-body p {
-    line-height: 21px;
-    margin: 0 0 15px;
-}*/
-
 .navbar-default {
     background-color: orange;
-    border-color: #E7E7E7;
+    border-color: orange;
 }
 
 .panel-heading {
@@ -28,6 +23,12 @@
     -webkit-box-shadow: 5px 5px #E5E5E5;
     -moz-box-shadow: 5px 5px #E5E5E5;
     box-shadow: 5px 5px #E5E5E5;
+}
+
+.shadow1{
+    -webkit-box-shadow: 0 0 10px 0 #490f76;
+    -moz-box-shadow: 0 0 10px 0 #490f76;
+    box-shadow: 0 0 10px 0 #490f76;
 }
 
 .tab{

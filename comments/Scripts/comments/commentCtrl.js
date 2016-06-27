@@ -130,7 +130,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
     $scope.showAll = function (item) {
         item.currentPage = -1;
         item.limit = 1000;
-        $scope.loadComments(postId, item, actionType.LoadAll, item.comment.id);
+        $scope.loadComments(item, actionType.LoadAll, item.comment.id);
     };
 
     $scope.addComment = function (newComment) {
