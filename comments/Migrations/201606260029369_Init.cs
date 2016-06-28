@@ -1,6 +1,5 @@
 namespace CommentSystems.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
 
     public partial class Init : DbMigration
@@ -91,7 +90,6 @@ namespace CommentSystems.Migrations
             //    .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy, cascadeDelete: false)
             //    .ForeignKey("dbo.AspNetUsers", t => t.UpdatedBy, cascadeDelete: false)
             //    .Index(t => t.Id);
-
         }
 
         public override void Down()

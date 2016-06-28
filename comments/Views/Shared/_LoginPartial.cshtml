@@ -5,7 +5,7 @@
     {
         @Html.AntiForgeryToken()
         System.Net.Mail.MailAddress addr = new System.Net.Mail.MailAddress(User.Identity.GetUserName());
-        
+
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink("Hello " + addr.User + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "text-capitalize" })

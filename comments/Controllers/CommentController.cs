@@ -2,13 +2,11 @@
 using CommentSystems.Helpers;
 using CommentSystems.Models;
 using CommentSystems.Repositories;
-using System;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace CommentSystems.Controllers
 {
@@ -30,7 +28,7 @@ namespace CommentSystems.Controllers
     {
         private ICommentRepository commentRepository;
 
-        private static Dictionary<string,string> users;
+        private static Dictionary<string, string> users;
 
         static CommentController()
         {
@@ -55,7 +53,7 @@ namespace CommentSystems.Controllers
                 ParentId = string.IsNullOrEmpty(comment.ParentId) ? string.Empty : comment.ParentId,
                 Id = Guid.NewGuid().ToString(),
                 CreatedBy = User.Identity.GetUserId(),
-                PostId=comment.PostId,
+                PostId = comment.PostId,
                 CreatedOn = DateTime.Now
             };
 

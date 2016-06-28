@@ -1,11 +1,9 @@
-﻿using CommentSystems.Helpers;
+﻿using Comments.Helpers;
+using CommentSystems.Helpers;
+using CommentSystems.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using CommentSystems.Models;
-using Comments.Helpers;
 
 namespace CommentSystems.Repositories
 {
@@ -63,7 +61,6 @@ namespace CommentSystems.Repositories
             GC.SuppressFinalize(this);
         }
 
-
         public PagedList<Comment> GetComments(CommentSearchCondition searchCondition)
         {
             return GetParentCommentsByEntityId(searchCondition);
@@ -86,9 +83,7 @@ namespace CommentSystems.Repositories
                     parent.Replies = childComments.Where(child => child.ParentId == parent.Id).OrderByDescending(p => p.CreatedOn).ToPagedList(commentSearchCondition.PageNumber, commentSearchCondition.PageSize);
                     FetchAndIncludeReplies(dbContext, parent.Replies, commentSearchCondition, true);
                 }
-
             }
-
         }
 
         private static IQueryable<Comment> GetComments(CommentDbContext context, CommentSearchCondition commentSearchCondition)
@@ -101,7 +96,6 @@ namespace CommentSystems.Repositories
             {
                 return context.Comments.Where(x => x.PostId == commentSearchCondition.PostId && (x.ParentId == null || x.ParentId == ""));
             }
-
         }
 
         private PagedList<Comment> GetParentCommentsByEntityId(CommentSearchCondition commentSearchCondition)

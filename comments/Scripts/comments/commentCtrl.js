@@ -77,7 +77,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
     // Apply the result in DOM
     function updateDOM(item, result, action) {
         switch (action) {
-            case actionType.Init:                
+            case actionType.Init:
                 item.totalReplies = result.totalReplies;
                 item.replies = item.replies.concat(appendResult(0, result.replies));
                 item.limit = item.limit + item.pageSize;
@@ -139,7 +139,6 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
         $scope.loadComments(item, actionType.LoadAll, item.comment.id);
     };
 
-
     $scope.addComment = function (newComment) {
         commentSvc.addReplyComment(newComment.message, "", postId)
                 .then(function (addedComment) {
@@ -197,7 +196,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
 
     $scope.loadComments = function (item, action, parentId) {
         commentSvc.loadComments(postId, item, parentId)
-                .then(function (result) {                    
+                .then(function (result) {
                     if (result)
                         updateDOM(item, result, action);
                 },

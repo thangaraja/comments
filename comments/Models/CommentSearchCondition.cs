@@ -1,6 +1,4 @@
-﻿
-using System;
-namespace CommentSystems.Models
+﻿namespace CommentSystems.Models
 {
     public class CommentSearchCondition
     {
@@ -8,6 +6,6 @@ namespace CommentSystems.Models
         public string PostId { get; set; }
         public string ParentId { get; set; }
         public int PageSize { get; set; }
-        public int PageNumber { get; set; }        
+        public int PageNumber { get; set; }
     }
 }

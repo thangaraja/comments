@@ -3,9 +3,7 @@ namespace CommentSystems.Migrations
     using CommentSystems.Models;
     using Microsoft.AspNet.Identity;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<CommentSystems.Models.ApplicationDbContext>
     {
@@ -19,7 +17,7 @@ namespace CommentSystems.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data. E.g.
             //
             var passwordHash = new PasswordHasher();

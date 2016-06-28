@@ -14,8 +14,8 @@
     </form>
     <hr ng-if="currentUser" />
     <button ng-if="baseCommentThread.totalReplies > baseCommentThread.replies.length" class="btn-link" ng-click="showAll(baseCommentThread)">View All {{baseCommentThread.totalReplies}} Comments</button>
-    <br ng-if="baseCommentThread.totalReplies > baseCommentThread.replies.length"/>
-    <br ng-if="baseCommentThread.totalReplies > baseCommentThread.replies.length"/>
+    <br ng-if="baseCommentThread.totalReplies > baseCommentThread.replies.length" />
+    <br ng-if="baseCommentThread.totalReplies > baseCommentThread.replies.length" />
     <div>
         <div class="media text-center" ng-if="baseCommentThread.totalReplies===0">
             No Comments
@@ -33,7 +33,7 @@
                 <img class="media-object" ng-src="{{getImage(thread.comment.createdBy)}}" />
             </a>
         </div>
-        
+
         <div class="media-body">
             <h6 class="media-heading text-primary">
                 {{thread.comment.createdByName}}

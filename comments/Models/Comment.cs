@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommentSystems.Models
 {
-
     public class Comment
     {
         [Key]
@@ -26,13 +25,13 @@ namespace CommentSystems.Models
         [StringLength(250)]
         public string CreatedBy { get; set; }
 
-        [Required] 
+        [Required]
         public DateTime CreatedOn { get; set; }
 
         [StringLength(250)]
         public string UpdatedBy { get; set; }
 
-        [Required] 
+        [Required]
         public string PostId { get; set; }
 
         private Nullable<DateTime> _updatedOn;
