@@ -56,3 +56,7 @@
     .box a {
         margin-left: 7px;
     }
+
+.comments button {
+    margin-left:-10px;
+}

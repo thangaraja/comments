@@ -172,6 +172,14 @@ namespace CommentSystems.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public string GetCurrentUser()
+        {
+            return User.Identity.GetUserId();
+        }
+
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

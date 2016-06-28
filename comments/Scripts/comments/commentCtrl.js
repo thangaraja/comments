@@ -1,5 +1,5 @@
 'use strict';
-commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, commentSvc) {
+commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'UserService', function ($scope,$rootScope, commentSvc, userService) {
     $scope.id = $scope.value ? $scope.value.entityId : "";
 
     $scope.newComment = {
@@ -13,6 +13,13 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
         SecondLevel: 2,
         ThirdLevel: 0
     }
+
+    $rootScope.$on('authorized', function () {
+        $scope.currentUser = userService.getCurrentUser();
+    });
+    $rootScope.$on('unauthorized', function () {
+        $scope.currentUser = userService.setCurrentUser(null);
+    });
 
     $scope.baseCommentThread = {};
 
@@ -70,7 +77,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
     // Apply the result in DOM
     function updateDOM(item, result, action) {
         switch (action) {
-            case actionType.Init:
+            case actionType.Init:                
                 item.totalReplies = result.totalReplies;
                 item.replies = item.replies.concat(appendResult(0, result.replies));
                 item.limit = item.limit + item.pageSize;
@@ -81,7 +88,6 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
                 item.totalReplies = item.totalReplies + 1;
                 break;
             case actionType.Reply:
-                debugger;
                 item.comment.isReply = false;
                 var reply = getCommentThread(item.level, result.comment);
                 item.replies = pushItemToArray(item.replies, reply);
@@ -124,7 +130,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
 
     $scope.showMore = function (item) {
         item.currentPage = item.currentPage + 1;
-        $scope.loadComments(postId, item, actionType.LoadMore, item.comment.id);
+        $scope.loadComments(item, actionType.LoadMore, item.comment.id);
     };
 
     $scope.showAll = function (item) {
@@ -133,8 +139,9 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
         $scope.loadComments(item, actionType.LoadAll, item.comment.id);
     };
 
+
     $scope.addComment = function (newComment) {
-        commentSvc.addReplyComment(newComment.message, "",postId)
+        commentSvc.addReplyComment(newComment.message, "", postId)
                 .then(function (addedComment) {
                     newComment.message = '';
                     updateDOM($scope.baseCommentThread, addedComment, actionType.Add);
@@ -166,6 +173,18 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
                    });
     };
 
+    var images = {};
+
+    images["486e6f82-5863-46fa-9f71-23ce80f83cde"] = "/Content/Images/Legolas.gif";
+    images["f0ee3446-44a3-4aba-827b-a1d354bfc4f1"] = "/Content/Images/gandalf.png";
+    images["b196971f-6f19-4ae2-9454-90f6ae2412c4"] = "/Content/Images/Aragorn.jpg";
+
+    $scope.getImage = function (userId) {
+        if (images[userId])
+            return images[userId];
+        else "http://placehold.it/64x64";
+    };
+
     $scope.deleteComment = function (item) {
         commentSvc.deleteComment(item.comment)
                .then(function () {
@@ -178,7 +197,7 @@ commentApp.controller('commentCtrl', ['$scope', 'commentSvc', function ($scope, 
 
     $scope.loadComments = function (item, action, parentId) {
         commentSvc.loadComments(postId, item, parentId)
-                .then(function (result) {
+                .then(function (result) {                    
                     if (result)
                         updateDOM(item, result, action);
                 },

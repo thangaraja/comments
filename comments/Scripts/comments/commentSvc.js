@@ -1,12 +1,12 @@
 'use strict';
 commentApp.service("commentSvc", function ($http, $q) {
     var urlBase = '/Comment/';
+    
 
     return ({
         addReplyComment: addReplyComment,
         loadComments: loadComments,
         editComment: editComment,
-        deleteComment: deleteComment
     });
 
     function loadComments(postId, _item, _parentId) {

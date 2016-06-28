@@ -13,7 +13,6 @@ commentApp.directive('includeReplace', function () {
         require: 'ngInclude',
         restrict: 'A', /* optional */
         link: function (scope, el, attrs) {
-            //debugger;
             el.replaceWith(el.children());
         }
     };

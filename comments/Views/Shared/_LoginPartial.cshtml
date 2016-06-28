@@ -4,10 +4,11 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
+        System.Net.Mail.MailAddress addr = new System.Net.Mail.MailAddress(User.Identity.GetUserName());
+        
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello " + addr.User + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "text-capitalize" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
@@ -29,19 +30,19 @@ else
         </div>
         <div class="pull-left box">
             <div class="clearfix">
+                <a href="javascript:document.getElementById('Legolas').submit()">
+                    <img src="~/Content/Images/Legolas.gif" alt="..." class="img-circle pull-left">
+                </a>
+            </div>
+            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "legolas@lotr.com", Password = "Password@123", Name = "Legolas" })
+        </div>
+        <div class="pull-left box">
+            <div class="clearfix">
                 <a href="javascript:document.getElementById('Aragorn').submit()">
                     <img src="~/Content/Images/Aragorn.jpg" alt="..." class="img-circle pull-left">
                 </a>
             </div>
-            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "legolas@lotr.com", Password = "Password@123", Name = "Aragorn" })
-        </div>
-        <div class="pull-left box">
-            <div class="clearfix">
-                <a href="javascript:document.getElementById('Legolas').submit()">
-                    <img src="~/Content/Images/legolas.gif" alt="..." class="img-circle pull-left">
-                </a>
-            </div>
-            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "aragorn@lotr.com", Password = "Password@123", Name = "Legolas" })
+            @Html.Partial("LoginImmediatly", new CommentSystems.Models.LoginViewModel() { Email = "aragorn@lotr.com", Password = "Password@123", Name = "Aragorn" })
         </div>
     </div>
 }

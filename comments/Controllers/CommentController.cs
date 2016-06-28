@@ -4,7 +4,11 @@ using CommentSystems.Models;
 using CommentSystems.Repositories;
 using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace CommentSystems.Controllers
 {
@@ -22,13 +26,19 @@ namespace CommentSystems.Controllers
         }
     }
 
-
-
     public class CommentController : Controller
     {
-        //private static List<Comment> _Comments;
-
         private ICommentRepository commentRepository;
+
+        private static Dictionary<string,string> users;
+
+        static CommentController()
+        {
+            users = new Dictionary<string, string>();
+            users.Add("486e6f82-5863-46fa-9f71-23ce80f83cde", "Legolas");
+            users.Add("b196971f-6f19-4ae2-9454-90f6ae2412c4", "Aragorn");
+            users.Add("f0ee3446-44a3-4aba-827b-a1d354bfc4f1", "Gandalf");
+        }
 
         public CommentController()
         {
@@ -36,6 +46,7 @@ namespace CommentSystems.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddOrReplyComment(Comment comment)
         {
             Comment _comment = new Comment()
@@ -43,7 +54,7 @@ namespace CommentSystems.Controllers
                 Message = comment.Message,
                 ParentId = string.IsNullOrEmpty(comment.ParentId) ? string.Empty : comment.ParentId,
                 Id = Guid.NewGuid().ToString(),
-                CreatedBy = "Test",
+                CreatedBy = User.Identity.GetUserId(),
                 PostId=comment.PostId,
                 CreatedOn = DateTime.Now
             };
@@ -53,14 +64,16 @@ namespace CommentSystems.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void Edit(Comment comment)
         {
-            comment.UpdatedBy = "Test";
+            comment.UpdatedBy = User.Identity.GetUserId();
             comment.UpdatedOn = DateTime.Now;
             commentRepository.Update(comment);
         }
 
         [HttpDelete]
+        [Authorize]
         public void Delete(string commentId, string parentId)
         {
             commentRepository.Delete(commentId);
@@ -75,7 +88,8 @@ namespace CommentSystems.Controllers
                     comment.Id,
                     comment.Message,
                     CreatedOn = comment.CreatedOn.ToString("g"),
-                    CreatedBy = "Gandalf",
+                    CreatedBy = comment.CreatedBy,
+                    CreatedByName = users[comment.CreatedBy],
                     InReplyToCommentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? comment.ParentId.ToString() : null,
                     IsEdited = CommonHelpers.IsNotEmptyGuid(comment.UpdatedBy)
                 },
