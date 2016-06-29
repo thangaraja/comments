@@ -174,9 +174,16 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
 
     var images = {};
 
-    images["486e6f82-5863-46fa-9f71-23ce80f83cde"] = "/Content/Images/Legolas.gif";
-    images["f0ee3446-44a3-4aba-827b-a1d354bfc4f1"] = "/Content/Images/gandalf.png";
-    images["b196971f-6f19-4ae2-9454-90f6ae2412c4"] = "/Content/Images/Aragorn.jpg";
+    images["486e6f82-5863-6783-9f71-23ce80f83cde"] = "/Content/Images/Legolas.gif";
+    images["486e6f82-1234-46fa-9f71-23ce80f83cde"] = "/Content/Images/gandalf.png";
+    images["b196971f-9873-4ae2-9454-90f6ae2412c4"] = "/Content/Images/Aragorn.jpg";
+    images["486e6f82-5678-46fa-9f71-23ce80f83cde"] = "/Content/Images/Frodo.png";
+    images["486e6f82-5863-6537-9f71-23ce80f83cde"] = "/Content/Images/Merry.jpg";
+    images["486e6f82-5863-9821-9f71-23ce80f83cde"] = "/Content/Images/Pippin.png";
+
+    images["486e6f82-5863-3581-9f71-23ce80f83cde"] = "/Content/Images/Gimli.jpg";
+    images["486e6f82-5863-3245-9f71-23ce80f83cde"] = "/Content/Images/Sam.png";
+    images["486e6f82-5863-9471-9f71-23ce80f83cde"] = "/Content/Images/Boromir.jpg";
 
     $scope.getImage = function (userId) {
         if (images[userId])

@@ -1,4 +1,5 @@
 ﻿using CommentSystems.Attributes;
+using CommentSystems.Constants;
 using CommentSystems.Helpers;
 using CommentSystems.Models;
 using CommentSystems.Repositories;
@@ -33,9 +34,16 @@ namespace CommentSystems.Controllers
         static CommentController()
         {
             users = new Dictionary<string, string>();
-            users.Add("486e6f82-5863-46fa-9f71-23ce80f83cde", "Legolas");
-            users.Add("b196971f-6f19-4ae2-9454-90f6ae2412c4", "Aragorn");
-            users.Add("f0ee3446-44a3-4aba-827b-a1d354bfc4f1", "Gandalf");
+            users.Add(CommonConstants.UserIdOfGandalf, "Gandalf");
+            users.Add(CommonConstants.UserIdOfAragorn, "Aragorn");
+            users.Add(CommonConstants.UserIdOfFrodo, "Frodo");
+            users.Add(CommonConstants.UserIdOfSam, "Sam");
+            users.Add(CommonConstants.UserIdOfLegolas, "Legolas");
+            users.Add(CommonConstants.UserIdOfMerry, "Merry");
+            users.Add(CommonConstants.UserIdOfPippin, "Pippin");
+            users.Add(CommonConstants.UserIdOfGimli, "Gimli");
+            users.Add(CommonConstants.UserIdOfBoromir, "Boromir");
+
         }
 
         public CommentController()

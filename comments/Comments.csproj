@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\CamelCasingFilterAttribute.cs" />
+    <Compile Include="Constants\CommonConstants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -190,8 +191,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\Aragorn.jpg" />
+    <Content Include="Content\Images\boromir.jpg" />
+    <Content Include="Content\Images\frodo.png" />
     <Content Include="Content\Images\gandalf.png" />
+    <Content Include="Content\Images\gimli.jpg" />
     <Content Include="Content\Images\legolas.gif" />
+    <Content Include="Content\Images\merry.jpg" />
+    <Content Include="Content\Images\pippin.png" />
+    <Content Include="Content\Images\sam.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
