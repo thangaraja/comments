@@ -31,7 +31,7 @@ namespace CommentSystems.Repositories
         public void Delete(string id)
         {
             Comment comment = GetById(id);
-            context.Comments.Remove(comment);
+            context.Entry(comment).State = EntityState.Deleted;
             Save();
         }
 

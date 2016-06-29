@@ -1,5 +1,5 @@
 'use strict';
-commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'UserService', function ($scope,$rootScope, commentSvc, userService) {
+commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'UserService', function ($scope, $rootScope, commentSvc, userService) {
     $scope.id = $scope.value ? $scope.value.entityId : "";
 
     $scope.newComment = {
@@ -93,7 +93,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
                 item.replies = pushItemToArray(item.replies, reply);
                 break;
             case actionType.Delete:
-
+                
                 break;
             case actionType.LoadMore:
                 item.replies = item.replies.concat(appendResult(0, result.replies));
@@ -192,9 +192,9 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope','commentSvc', 'User
     };
 
     $scope.deleteComment = function (item) {
-        commentSvc.deleteComment(item.comment)
+        commentSvc.deleteComment(item.comment.id)
                .then(function () {
-                   updateDOM(item);
+                   updateDOM(item, item.comment.id, actionType.Delete);
                },
                    function (errorMessage) {
                        console.warn(errorMessage);

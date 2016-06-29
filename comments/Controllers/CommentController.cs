@@ -78,9 +78,9 @@ namespace CommentSystems.Controllers
             commentRepository.Update(comment);
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Authorize]
-        public void Delete(string commentId, string parentId)
+        public void Delete(string commentId)
         {
             commentRepository.Delete(commentId);
         }

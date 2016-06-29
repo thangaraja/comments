@@ -6,6 +6,7 @@ commentApp.service("commentSvc", function ($http, $q) {
         addReplyComment: addReplyComment,
         loadComments: loadComments,
         editComment: editComment,
+        deleteComment: deleteComment
     });
 
     function loadComments(postId, _item, _parentId) {
@@ -60,14 +61,13 @@ commentApp.service("commentSvc", function ($http, $q) {
         return deferred.promise;
     };
 
-    function deleteComment(_comment) {
+    function deleteComment(id) {
         var deferred = $q.defer();
         var request = $http({
             method: "post",
-            url: urlBase + "DeleteComment",
+            url: urlBase + "Delete",
             data: {
-                commentId: _comment.id,
-                parentId: _comment.inReplyToCommentId
+                commentId: id
             }
         }).success(function (result) {
             deferred.resolve(result);
