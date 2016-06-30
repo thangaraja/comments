@@ -27,9 +27,10 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
         Init: 1,
         Add: 2,
         Reply: 3,
-        Delete: 4,
-        LoadMore: 5,
-        LoadAll: 6
+        Edit : 4,
+        Delete: 5,
+        LoadMore: 6,
+        LoadAll: 7
     };
 
     // Conver the plain comment to thread
@@ -93,7 +94,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
                 item.replies = pushItemToArray(item.replies, reply);
                 break;
             case actionType.Delete:
-                
+
                 break;
             case actionType.LoadMore:
                 item.replies = item.replies.concat(appendResult(0, result.replies));
@@ -117,7 +118,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
     };
 
     $scope.showEdit = function (comment) {
-        comment.isEdited = true;
+        comment.isEdit = true;
     };
 
     $scope.showLoadMore = function (item) {
@@ -130,13 +131,13 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
 
     $scope.showMore = function (item) {
         item.currentPage = item.currentPage + 1;
-        $scope.loadComments(item, actionType.LoadMore, item.comment.id);
+        loadComments(item, actionType.LoadMore, item.comment.id);
     };
 
     $scope.showAll = function (item) {
         item.currentPage = -1;
         item.limit = 1000;
-        $scope.loadComments(item, actionType.LoadAll, item.comment.id);
+        loadComments(item, actionType.LoadAll, item.comment.id);
     };
 
     $scope.addComment = function (newComment) {
@@ -144,6 +145,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
                 .then(function (addedComment) {
                     newComment.message = '';
                     updateDOM($scope.baseCommentThread, addedComment, actionType.Add);
+                    addNewActivity(addedComment.comment, actionType.Reply);
                 },
                     function (errorMessage) {
                         console.warn(errorMessage);
@@ -155,6 +157,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
                .then(function (repliedComment) {
                    replyComment.message = '';
                    updateDOM(parentComment, repliedComment, actionType.Reply);
+                   addNewActivity(repliedComment.comment, actionType.Reply);
                },
                    function (errorMessage) {
                        console.warn(errorMessage);
@@ -165,7 +168,9 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
         comment.postId = postId;
         commentSvc.editComment(comment)
                .then(function () {
-                   comment.isEdited = false;
+                   comment.isEdit = false;
+                   comment.isEdited = true;
+                   addNewActivity(comment,actionType.Edit);
                },
                    function (errorMessage) {
                        console.warn(errorMessage);
@@ -201,7 +206,7 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
                    });
     };
 
-    $scope.loadComments = function (item, action, parentId) {
+    var loadComments = function (item, action, parentId) {
         commentSvc.loadComments(postId, item, parentId)
                 .then(function (result) {
                     if (result)
@@ -212,10 +217,32 @@ commentApp.controller('commentCtrl', ['$scope', '$rootScope', 'commentSvc', 'Use
                     });
     };
 
+    var getRecentActivities = function () {
+        commentSvc.getRecentActivities()
+                .then(function (result) {
+                    $scope.recentActivities = result;
+                },
+                    function (errorMessage) {
+                        console.warn(errorMessage);
+                    });
+    };
+
+    var addNewActivity = function (comment,action) {
+
+        var newcomment = {
+            message: comment.message,
+            changeDoneBy: comment.updatedByName == null ? comment.createdByName : comment.updatedByName,
+            changeDoneOn: new Date(),
+            action: action == actionType.Add ? "Added" : "Updated"
+        };
+        $scope.recentActivities = pushItemToArray($scope.recentActivities, newcomment);
+    };
+
     $scope.init = function () {
         var thread = getCommentThread();
-        $scope.loadComments(thread, actionType.Init, "-1");
+        loadComments(thread, actionType.Init, "-1");
         $scope.baseCommentThread = thread;
+        getRecentActivities();
     };
     $scope.init();
 }]);

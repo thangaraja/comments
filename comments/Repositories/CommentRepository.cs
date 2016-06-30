@@ -2,6 +2,7 @@
 using CommentSystems.Helpers;
 using CommentSystems.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -130,6 +131,12 @@ namespace CommentSystems.Repositories
                 }
                 throw new Exception(rs);
             }
+        }
+
+
+        public List<Comment> GetRecentActivities()
+        {
+            return context.Comments.OrderByDescending(x => (x.UpdatedOn != null ? x.UpdatedOn.Value : x.CreatedOn)).Take(5).ToList();
         }
     }
 }

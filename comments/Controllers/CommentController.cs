@@ -96,7 +96,7 @@ namespace CommentSystems.Controllers
                     CreatedOn = comment.CreatedOn.ToString("g"),
                     CreatedBy = comment.CreatedBy,
                     CreatedByName = users[comment.CreatedBy],
-                    InReplyToCommentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? comment.ParentId.ToString() : null,
+                    ParentId = CommonHelpers.IsNotEmptyGuid(comment.ParentId) ? comment.ParentId.ToString() : null,
                     IsEdited = CommonHelpers.IsNotEmptyGuid(comment.UpdatedBy)
                 },
                 Replies = GetExtractedComments(comment.Replies, comment.Replies != null ? comment.Replies.TotalCount : 0)
@@ -131,6 +131,21 @@ namespace CommentSystems.Controllers
             var replies = commentRepository.GetComments(condition);
 
             var result = GetExtractedComments(replies, replies.TotalCount);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetRecentActivities()
+        {
+            var comments = commentRepository.GetRecentActivities();
+            var result = comments.Select(x =>
+            new
+            {
+                Message = x.Message,
+                ChangeDoneBy = x.UpdatedBy == null ? users[x.CreatedBy] : users[x.UpdatedBy],
+                ChangeDoneOn = x.UpdatedOn == null ? x.CreatedOn : x.UpdatedOn,
+                Action = x.UpdatedOn == null ? "Added" : "Updated"
+            });
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CommentSystems.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CommentSystems.Repositories
 {
@@ -14,5 +15,7 @@ namespace CommentSystems.Repositories
         void Delete(string commentId);
 
         void Update(Comment comment);
+
+        List<Comment> GetRecentActivities();
     }
 }

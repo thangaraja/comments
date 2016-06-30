@@ -25,14 +25,14 @@
     box-shadow: 5px 5px #E5E5E5;
 }
 
-.shadow1{
+.shadow1 {
     -webkit-box-shadow: 0 0 10px 0 #490f76;
     -moz-box-shadow: 0 0 10px 0 #490f76;
     box-shadow: 0 0 10px 0 #490f76;
 }
 
-.tab{
-    margin-left:70px;
+.tab {
+    margin-left: 70px;
 }
 
 .marginsmall {
@@ -50,10 +50,28 @@
 .box {
     height: 90px;
     width: 81px;
-    text-align:center;
-    cursor:pointer;
+    text-align: center;
+    cursor: pointer;
 }
 
 .comments button {
-    margin-left:-10px;
+    margin-left: -10px;
 }
+
+.notifications-list {
+    margin-top: -10px;
+    height: 443px;
+}
+
+.notification {
+    padding: 7px 12px 7px 5px;
+    border-bottom: 1px solid lightgray;
+}
+
+    .notification:last-child {
+        border-bottom: none;
+    }
+
+    .notification:first-child {
+        padding: 0px 12px 7px 5px;
+    }

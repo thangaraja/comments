@@ -6,7 +6,8 @@ commentApp.service("commentSvc", function ($http, $q) {
         addReplyComment: addReplyComment,
         loadComments: loadComments,
         editComment: editComment,
-        deleteComment: deleteComment
+        deleteComment: deleteComment,
+        getRecentActivities: getRecentActivities
     });
 
     function loadComments(postId, _item, _parentId) {
@@ -22,6 +23,18 @@ commentApp.service("commentSvc", function ($http, $q) {
                 page: _item.currentPage,
                 pageSize: _item.pageSize
             }
+        }).success(function (data) {
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
+    };
+
+    function getRecentActivities() {
+        var deferred = $q.defer();
+        var request = $http({
+            method: "get",
+            url: urlBase + "GetRecentActivities"
         }).success(function (data) {
             deferred.resolve(data);
         });
