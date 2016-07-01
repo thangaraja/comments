@@ -1,5 +1,5 @@
 'use strict';
-commentApp.service("commentSvc", function ($http, $q) {
+commentApp.service("commentSvc", ['$http', '$q',function ($http, $q) {
     var urlBase = '/Comment/';
 
     return ({
@@ -88,4 +88,4 @@ commentApp.service("commentSvc", function ($http, $q) {
 
         return deferred.promise;
     };
-});
+}]);

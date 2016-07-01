@@ -1,6 +1,6 @@
 var commentApp = angular.module('CommentsApp', ['angular-storage', 'angularMoment']);
 
-commentApp.service('UserService', function (store, $http, $rootScope) {
+commentApp.service('UserService', ['store', '$http', '$rootScope', function (store, $http, $rootScope) {
     var accounturlBase = '/Account/';
 
     var service = this;
@@ -20,9 +20,9 @@ commentApp.service('UserService', function (store, $http, $rootScope) {
     service.getCurrentUser = function () {
         return store.get('user');
     };
-});
+}]);
 
-commentApp.service('APIInterceptor', function ($rootScope, store) {
+commentApp.service('APIInterceptor', ['$rootScope', 'store', function ($rootScope, store) {
     var service = this;
     service.request = function (config) {
         return config;
@@ -33,8 +33,8 @@ commentApp.service('APIInterceptor', function ($rootScope, store) {
         }
         return response;
     };
-});
+}]);
 
-commentApp.config(function ($httpProvider) {
+commentApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('APIInterceptor');
-});
+}]);
