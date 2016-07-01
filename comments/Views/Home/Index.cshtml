@@ -16,6 +16,9 @@
             </div>
             <div class="panel-body">
                 <div class="notifications-list">
+                    <div class="notification text-center" ng-if="recentActivities.length==0">
+                        No Comments
+                    </div>
                     <div class="notification" ng-repeat="activity in recentActivities">
                         <div class="text-danger">{{activity.changeDoneBy}}</div>
                         <div>{{ activity.action }} comment <span class="text-info" title="{{activity.message}}">{{ activity.message | limitTo:45 }}</span></div>
