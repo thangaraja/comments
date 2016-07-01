@@ -61,6 +61,7 @@
 .notifications-list {
     margin-top: -10px;
     height: 443px;
+    overflow:auto;
 }
 
 .notification {
